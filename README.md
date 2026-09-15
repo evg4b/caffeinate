@@ -28,12 +28,15 @@ macOS has been able to stay awake for years — `caffeinate` is right there in
 
 ```sh
 brew tap evg4b/tap
-brew install --cask --no-quarantine caffeinate
+brew install --cask caffeinate
+xattr -dr com.apple.quarantine /Applications/caffeinate.app
 ```
 
-`--no-quarantine` is needed because the app is signed ad-hoc rather than with a
-Developer ID; without it macOS refuses to open the downloaded app. Later,
-`brew upgrade --cask caffeinate` updates it and `brew uninstall --cask
+Homebrew quarantines everything it downloads, and since Homebrew 7 there is no
+`--no-quarantine` flag to opt out. The app is signed ad-hoc rather than with a
+Developer ID, so macOS refuses to open it until that flag is cleared.
+
+Later, `brew upgrade --cask caffeinate` updates it and `brew uninstall --cask
 caffeinate` removes it (add `--zap` to drop the saved options too).
 
 ### From the releases page
